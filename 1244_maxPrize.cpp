@@ -1,94 +1,47 @@
 #include <iostream>
+#include <cstring>
 #include <string>
+#include <algorithm>
 using namespace std;
-// Á¤¼ö ÀÚ¸®¼ö ÃÖ´ë 6ÀÚ¸® 
+int visit[1000000]; // ìë¦¿ìˆ˜(6ìë¦¬) ë§Œí¼ ì²´í¬
+int maxNum;
 
-void dfs(int idx, int depth) {
-	int i, j;
+void dfs(string &str,int idx, int depth, int size) {
+	int i, j, temp;
+	//temp = atoi(Card.c_str());
+	temp = stoi(str);
+	if (depth == 0) {
+		maxNum = max(temp, maxNum);
+		return ;
+	}
+	if (visit[temp] == 1) { return; }
+	visit[temp] = 1;
 
-	for(i = idx; i<)
+	for (i = idx; i < size; i++) {
+		for (j = i + 1; j < size; j++) {
+			swap(str[i], str[j]);
+			dfs(str, idx, depth - 1, size);
+			swap(str[i], str[j]);
+		}
+	}
 }
 
 int main() {
 	int T, N;
 	string Card;
-	int i;
 	cin >> T;
-	for (i = 1; i <= T; i++) {
-		int temp;
-		int maxNum;
+	for (int i = 1; i <= T; i++) {
+		int stringLength;
 		cin >> Card >> N;
 
-		//temp = atoi(Card.c_str());
-		temp = stoi(Card);
-		// 6ÀÚ¸®·Î ¸¸µé¼öÀÖ´Â ÃÖ´ë ÀÚ¸®¼ö : 6*5*4*3*2*1 = 720
+		stringLength = Card.size();
+		
+		dfs(Card, 0, N, stringLength);
+		
+		printf("#%d %d\n", i, maxNum);
 
-		printf("#%d %d\n", i, temp);
+		memset(visit, 0, sizeof(visit));
+		maxNum = 0;
 	}
 	return 0;
 }
-
-
-
-
-
-/*
-#include<cstdio>
-#include<iostream>
-#include<cstring>
-#include<algorithm>
-#include<cmath>
-
-using namespace std;
-
-string num;
-int check[1000000];
-int len, N, ans;
-
-void dfs(int idx, int depth)
-{
-	int temp = 0;
-	for (int i = 0; i < len; i++)
-	{
-		temp += pow(10, len - i - 1)*(num[i] - '0');
-	}
-
-	if (depth == N)
-	{
-		ans = max(temp, ans);
-		return;
-	}
-	if (check[temp] == 1)return;
-
-	check[temp] = 1;
-
-	for (int i = idx; i < len; i++)
-	{
-		for (int j = i + 1; j < len; j++)
-		{
-			swap(num[i], num[j]);
-			dfs(i, depth + 1);
-			swap(num[j], num[i]);
-		}
-	}
-}
-
-int main()
-{
-	int Tc;
-	cin >> Tc;
-	for (int t = 1; t <= Tc; t++) {
-		cin >> num;
-		cin >> N;
-		len = num.size();
-
-		dfs(0, 0);
-
-		printf("#%d %d\n", t, ans);
-
-		memset(check, 0, sizeof(check));
-		ans = 0;
-	}
-	return 0;
-}
-*/
