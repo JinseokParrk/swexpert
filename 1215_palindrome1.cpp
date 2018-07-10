@@ -2,7 +2,7 @@
 #include<cstring>
 using namespace std;
 
-// (1,1) ºÎÅÍ 4¹æÇâÀ¸·Î testLen¸¸Å­ °Ë»ç
+// (1,1) ÂºÃÃ…Ã 4Â¹Ã¦Ã‡Ã¢Ã€Â¸Â·Ã testLenÂ¸Â¸Ã…Â­ Â°Ã‹Â»Ã§
 
 /*
 4
@@ -36,7 +36,6 @@ int main(){
 			for (int y = 1; y <= 8; y++) {
 				for (i = 0; i < 4; i++) {
 					int palcnt = 0;
-					//int visitcnt = 0;
 					for (j = 0; j < testLen / 2; j++) {
 						int nx = x + dx[i] * (testLen - 1 - j);
 						int ny = y + dy[i] * (testLen - 1 - j);
@@ -44,16 +43,10 @@ int main(){
 							ny >= 1 && ny <= 8 ) {
 							if (map[x + dx[i] * j][y + dy[i] * j] == map[nx][ny]) {
 								palcnt++;
-						//		visitcnt = visit[x + dx[i] * j][y + dy[i] * j] + visit[nx][ny];
 							}
 							else break;
 							if (palcnt == testLen / 2) {
-								cnt++;
-								/*
-								for (int k = 0; k < testLen; k++) {
-									visit[x+k*dx[i]][y+k*dy[i]] = 1;
-								}
-								*/
+								cnt++;								
 							}
 						}
 					}
